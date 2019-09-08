@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 public class Vector330Class {
     private double x;
     private double y;
@@ -97,5 +99,28 @@ public class Vector330Class {
 
     public double direction(){
         return Math.atan2(this.y, this.x);
+    }
+
+    public Vector330Class normalize(){
+        if(this.magnitude() <= this.EPS){
+            return new Vector330Class(0, 0);
+        }
+        else{
+            return new Vector330Class(this.x * (1/this.magnitude()), this.y * (1/this.magnitude()));
+        }
+    }
+
+    public java.lang.String toString(){
+        DecimalFormat df = new DecimalFormat("0.0");
+        String stringAns = "< " + df.format(this.x) + ", " + df.format(this.y) + " >";
+        return stringAns;
+    }
+
+    public static Vector330Class parseVector(java.util.Scanner s){
+        double newX = 0;
+        double newY = 0;
+        String newString = s.toString();
+        newString = newString.replaceAll("<", "").replaceAll(" ", "");
+        return new Vector330Class(newX, newY);
     }
 }
