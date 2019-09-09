@@ -3,7 +3,7 @@ import java.text.DecimalFormat;
 public class Vector330Class {
     private double x;
     private double y;
-    private static final double EPS = 0.0000000001;
+    private static double EPS = 0.0000000001;
 
     public Vector330Class(){
         this.x = 0;
@@ -112,15 +112,19 @@ public class Vector330Class {
 
     public java.lang.String toString(){
         DecimalFormat df = new DecimalFormat("0.0");
-        String stringAns = "< " + df.format(this.x) + ", " + df.format(this.y) + " >";
-        return stringAns;
+        return "< " + df.format(this.x) + ", " + df.format(this.y) + " >";
     }
 
     public static Vector330Class parseVector(java.util.Scanner s){
         double newX = 0;
         double newY = 0;
-        String newString = s.toString();
-        newString = newString.replaceAll("<", "").replaceAll(" ", "");
+        String newString = s.nextLine();
+        newString = newString.replaceAll("<", "").replaceAll(">", "").replaceAll(",", "");
+        String[] strArr = newString.split("\\s+");
+        //TODO Put inside try/catch to throw exception
+        newX = Double.parseDouble(strArr[1]);
+        newY = Double.parseDouble(strArr[2]);
+
         return new Vector330Class(newX, newY);
     }
 }

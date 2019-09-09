@@ -1,7 +1,13 @@
+import java.util.Scanner;
+
 public class VectorCalculator {
 
     public static void main(String[] args) {
-        // write your code here
+        Scanner myObj = new Scanner(System.in);
+        System.out.println("Please enter a vector: ");
+        Vector330Class myVector = Vector330Class.parseVector(myObj);
+        System.out.println(myVector.getX());
+        System.out.println(myVector.getY());
     }
 
     private static void parseExpression(java.util.Scanner s){
