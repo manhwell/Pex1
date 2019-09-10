@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 public class VectorCalculator {
 
     public static void main(String[] args) {
-        Pattern startTokens = Pattern.compile("exit|<|\\d|\\||dir|unit");
+        Pattern startTokens = Pattern.compile("exit|<|\\d+|\\||dir|unit");
         System.out.println("Welcome to the Vector Calculator!");
         Scanner in = new Scanner(System.in);
         boolean exit = false;
@@ -12,19 +12,24 @@ public class VectorCalculator {
             System.out.println("\nEnter vector expression: ");
             String userInput = in.nextLine();
             Scanner userCmd = new Scanner(userInput);
-            if (userCmd.hasNext(startTokens)){
-                if(userCmd.hasNext("exit")){
+            if (userCmd.hasNext(startTokens) || userCmd.hasNextDouble()){
+                if(userCmd.hasNext("exit") ){
                     exit = true;
                 }
                 else if(userCmd.hasNext("\\|")){
                     parseNormExpression(userCmd);
                 }
-                //TODO how do I get it to accept a double? Currently only working with an int
-                else if(userCmd.hasNext("\\d")){
+                else if(userCmd.hasNext("\\d") || userCmd.hasNextDouble()){
                     parseScaleExpression(userCmd);
                 }
                 else if(userCmd.hasNext("unit")){
                     parseNormalizeExpression(userCmd);
+                }
+                else if(userCmd.hasNext("dir")){
+                    parseDirectionExpression(userCmd);
+                }
+                else if(userCmd.hasNext("<")){
+                    parseVectorExpression(userCmd);
                 }
             }
         }
@@ -35,6 +40,13 @@ public class VectorCalculator {
     }
 
     private static void parseVectorExpression(java.util.Scanner s){
+        Vector330Class vector1 = Vector330Class.parseVector(s);
+        if(s.hasNext("\\+")){
+            s.next("\\+");
+            Vector330Class vector2 = Vector330Class.parseVector(s);
+            Vector330Class vectorResult = vector1.add(vector2);
+            System.out.println("Result is " + vectorResult.toString());
+        }
 
     }
 
@@ -50,16 +62,19 @@ public class VectorCalculator {
         s.next("\\*");
         Vector330Class myVector = Vector330Class.parseVector(s);
         Vector330Class newVector = myVector.scale(scaleValue);
-        System.out.println("< " + newVector.getX() + ", " + newVector.getY() + " >");
+        System.out.println("Result is " + newVector.toString());
     }
     private static void parseDirectionExpression(java.util.Scanner s){
-
+        s.next("dir");
+        Vector330Class myVector = Vector330Class.parseVector(s);
+        double vectorDir = myVector.direction();
+        System.out.println("Result is " + vectorDir);
     }
 
     private static void parseNormalizeExpression(java.util.Scanner s){
         s.next("unit");
         Vector330Class myVector = Vector330Class.parseVector(s);
         Vector330Class newVector = myVector.normalize();
-        System.out.println("< " + newVector.getX() + ", " + newVector.getY() + " >");
+        System.out.println("Result is " + newVector.toString());
     }
 }

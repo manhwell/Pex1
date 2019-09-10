@@ -130,6 +130,7 @@ public class Vector330Class {
                     s.next(",");
                     if(s.hasNextDouble()){
                         newY = s.nextDouble();
+                        s.next(">");
                     }
                 }
             }
