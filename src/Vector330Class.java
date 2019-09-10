@@ -79,11 +79,11 @@ public class Vector330Class {
     }
 
     public Vector330Class add(Vector330Class v){
-        return new Vector330Class((this.x + v.x), (this.x + v.x));
+        return new Vector330Class((this.x + v.x), (this.y + v.y));
     }
 
     public Vector330Class subtract(Vector330Class v){
-        return new Vector330Class((this.x - v.x), (this.x - v.x));
+        return new Vector330Class((this.x - v.x), (this.y - v.y));
     }
 
     public double dotProduct(Vector330Class v){
@@ -116,24 +116,36 @@ public class Vector330Class {
         return "< " + df.format(this.x) + ", " + df.format(this.y) + " >";
     }
 
-    public static Vector330Class parseVector(java.util.Scanner s){
-        double newX = 0;
-        double newY = 0;
+    public static Vector330Class parseVector(java.util.Scanner s) throws Exception {
+        double newX;
+        double newY;
         Pattern originalPattern = s.delimiter();
         s.useDelimiter("[" + originalPattern + ",]");
-        if(s.hasNext("<")){
+        if (s.hasNext("<")) {
             s.next("<");
-            if(s.hasNextDouble()){
+            if (s.hasNextDouble()) {
                 newX = s.nextDouble();
                 s.useDelimiter(originalPattern);
-                if(s.hasNext(",")){
+                if (s.hasNext(",")) {
                     s.next(",");
-                    if(s.hasNextDouble()){
+                    if (s.hasNextDouble()) {
                         newY = s.nextDouble();
                         s.next(">");
                     }
+                    else {
+                        throw new Exception("Error occurred while parsing input, please check formatting");
+                    }
+                }
+                else {
+                    throw new Exception("Error occurred while parsing input, please check formatting");
                 }
             }
+            else {
+                throw new Exception("Error occurred while parsing input, please check formatting");
+            }
+        }
+        else {
+            throw new Exception("Error occurred while parsing input, please check formatting");
         }
         return new Vector330Class(newX, newY);
     }
