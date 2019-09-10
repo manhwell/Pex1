@@ -1,4 +1,5 @@
 import java.text.DecimalFormat;
+import java.util.regex.Pattern;
 
 public class Vector330Class {
     private double x;
@@ -118,13 +119,21 @@ public class Vector330Class {
     public static Vector330Class parseVector(java.util.Scanner s){
         double newX = 0;
         double newY = 0;
-        String newString = s.nextLine();
-        newString = newString.replaceAll("<", "").replaceAll(">", "").replaceAll(",", "");
-        String[] strArr = newString.split("\\s+");
-        //TODO Put inside try/catch to throw exception
-        newX = Double.parseDouble(strArr[1]);
-        newY = Double.parseDouble(strArr[2]);
-
+        Pattern originalPattern = s.delimiter();
+        s.useDelimiter("[" + originalPattern + ",]");
+        if(s.hasNext("<")){
+            s.next("<");
+            if(s.hasNextDouble()){
+                newX = s.nextDouble();
+                s.useDelimiter(originalPattern);
+                if(s.hasNext(",")){
+                    s.next(",");
+                    if(s.hasNextDouble()){
+                        newY = s.nextDouble();
+                    }
+                }
+            }
+        }
         return new Vector330Class(newX, newY);
     }
 }
