@@ -103,7 +103,7 @@ public class Vector330Class {
     }
 
     public Vector330Class normalize(){
-        if(this.magnitude() <= this.EPS){
+        if(this.magnitude() <= EPS){
             return new Vector330Class(0, 0);
         }
         else{

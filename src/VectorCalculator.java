@@ -37,7 +37,9 @@ public class VectorCalculator {
             else {
                     System.out.println("Invalid input, check formatting");
             }
+            userCmd.close();
         }
+        in.close();
     }
 
     private static void parseExpression(java.util.Scanner s){
