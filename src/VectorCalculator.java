@@ -42,10 +42,6 @@ public class VectorCalculator {
         in.close();
     }
 
-    private static void parseExpression(java.util.Scanner s){
-        //Vector330Class myVector = Vector330Class.parseVector(s);
-    }
-
     private static void parseVectorExpression(java.util.Scanner s){
         try {
             Vector330Class vector1 = Vector330Class.parseVector(s);
@@ -68,7 +64,7 @@ public class VectorCalculator {
             }
         }
         catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -80,7 +76,7 @@ public class VectorCalculator {
             System.out.println("Result is " + vectorMagnitude);
         }
         catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -93,7 +89,7 @@ public class VectorCalculator {
             System.out.println("Result is " + newVector.toString());
         }
         catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
     private static void parseDirectionExpression(java.util.Scanner s){
@@ -105,7 +101,7 @@ public class VectorCalculator {
             System.out.println("Result is " + df.format(vectorDir) + " radians\nor " + df.format(vectorDir * (180 / Math.PI)) + " in degrees.");
         }
         catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -117,7 +113,7 @@ public class VectorCalculator {
             System.out.println("Result is " + newVector.toString());
         }
         catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 }
