@@ -14,6 +14,7 @@ class Vector330ClassTest {
     private double x2;
     private double y2;
     private String parseTest;
+    private String parseTestBad;
     private Vector330Class vector1;
     private Vector330Class vector2;
     private Vector330Class vector3;
@@ -29,6 +30,7 @@ class Vector330ClassTest {
         y2 = 4.5;
         EPS = .0000000001;
         parseTest = "< " + x1 + ", " + x2 + " >";
+        parseTestBad = "| < " + x1 + ", " + x2 + " >";
         vector1 = new Vector330Class(x1, y1);
         vector2 = new Vector330Class(x2, y2);
         vector3 = new Vector330Class(x1, y1);
@@ -187,6 +189,15 @@ class Vector330ClassTest {
         Scanner userCmd = new Scanner(parseTest);
         testVector = Vector330Class.parseVector(userCmd);
         assert(testVector.getX() == x1);
+
+        try{ // Testing to make sure exceptions work.
+            userCmd = new Scanner(parseTestBad);
+            testVector = Vector330Class.parseVector(userCmd);
+            fail();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         userCmd.close();
     }
 }

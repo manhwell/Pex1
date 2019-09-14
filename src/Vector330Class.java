@@ -235,24 +235,23 @@ public class Vector330Class {
         double newY;
         Pattern originalPattern = s.delimiter();
         s.useDelimiter("[" + originalPattern + ",]");
-        if (s.hasNext("<")) {
-            s.next("<");
-            if (s.hasNextDouble()) {
-                newX = s.nextDouble();
+        if (s.hasNext("<")) { // Reading in the first <
+            s.next("<"); // Consume it
+            if (s.hasNextDouble()) { // Reading the X value
+                newX = s.nextDouble(); // Set it
                 s.useDelimiter(originalPattern);
-                if (s.hasNext(",")) {
+                if (s.hasNext(",")) { // Read and consume the ','
                     s.next(",");
-                    if (s.hasNextDouble()) {
-                        newY = s.nextDouble();
-
+                    if (s.hasNextDouble()) { // Reading the Y value
+                        newY = s.nextDouble(); // Set it
                         try{
-                            s.next(">");
+                            s.next(">"); // Look for the closing >
                         }
-                        catch(InputMismatchException e){
-                            throw new Exception("Error occurred, no closing bracket.");
+                        catch(InputMismatchException e){ // If ts not there, throw an exception
+                            throw new Exception("Error occurred, no closing bracket."); // No closing bracket found
                         }
                     }
-                    else {
+                    else { // The following are the exception throws and the associated error message for the missing item.
                         throw new Exception("Error occurred while parsing input, please check your second value.");
                     }
                 }
@@ -267,6 +266,6 @@ public class Vector330Class {
         else {
             throw new Exception("Error occurred, no starting bracket");
         }
-        return new Vector330Class(newX, newY);
+        return new Vector330Class(newX, newY); // Return that vector!
     }
 }
